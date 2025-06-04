@@ -34,6 +34,7 @@ app.get('/etudiant/:id', function(req, res){
     return e.id === parseInt(id) ;
   })
   res.json(etudiant);
+  
 })
 
 const serveur = app.listen(80 , function(){ console.log("serveur express start") });
