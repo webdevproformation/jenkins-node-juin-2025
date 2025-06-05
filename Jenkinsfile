@@ -47,7 +47,7 @@ pipeline {
             steps {
                 script {
                     echo "Deploying with Docker "
-                    sshagent(['ec2']) {
+                    sshagent(credentials: ['ec2']) {
                         sh 'docker stop $(docker ps -a -q)'
                         sh 'docker rm $(docker ps -a -q)'
                         sh 'docker pull ${ImageRegistry}_${JOB_NAME}:${BUILD_NUMBER}'
