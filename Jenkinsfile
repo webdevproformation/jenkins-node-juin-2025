@@ -48,8 +48,6 @@ pipeline {
                 script {
                     echo "Deploying with Docker "
                     sshagent(credentials: ['ec2']) {
-                        sh 'docker stop $(docker ps -a -q)'
-                        sh 'docker rm $(docker ps -a -q)'
                         sh 'docker pull ${ImageRegistry}_${JOB_NAME}:${BUILD_NUMBER}'
                         sh 'docker run -d -p 80:80 ${ImageRegistry}_${JOB_NAME}:${BUILD_NUMBER}'
                     }
