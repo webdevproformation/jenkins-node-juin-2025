@@ -48,13 +48,10 @@ pipeline {
                 script {
                     echo "Deploying with Docker "
                     sshagent(['ec2']) {
-                        // Upload files once to reduce redundant SCP commands
-                        sh """
-                        docker stop $(docker ps -a -q)
-                        docker rm $(docker ps -a -q)
-                        docker pull ${ImageRegistry}_${JOB_NAME}:${BUILD_NUMBER}
-                        docker run -d -p 80:80 ${ImageRegistry}_${JOB_NAME}:${BUILD_NUMBER}
-                        """
+                        sh 'docker stop $(docker ps -a -q)'
+                        sh 'docker rm $(docker ps -a -q)'
+                        sh 'docker pull ${ImageRegistry}_${JOB_NAME}:${BUILD_NUMBER}'
+                        sh 'docker run -d -p 80:80 ${ImageRegistry}_${JOB_NAME}:${BUILD_NUMBER}'
                     }
                 }
             }
